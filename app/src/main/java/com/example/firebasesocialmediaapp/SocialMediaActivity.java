@@ -33,8 +33,10 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -47,6 +49,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.net.URI;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.UUID;
 
 public class SocialMediaActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
@@ -60,6 +63,7 @@ public class SocialMediaActivity extends AppCompatActivity implements AdapterVie
     private ArrayList<String> usernames;
     private ArrayAdapter adapter;
     private ArrayList<String> uids;
+    private String Imagedownloadlink;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -235,7 +239,19 @@ public class SocialMediaActivity extends AppCompatActivity implements AdapterVie
 
                         }
                     });
+
+                    taskSnapshot.getMetadata().getReference().getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Uri> task) {
+                            if (task.isSuccessful())
+                            {
+                                Imagedownloadlink=task.getResult().toString();
+                            }
+                        }
+                    });
                 }
+
+
             });
 
         }
@@ -243,6 +259,13 @@ public class SocialMediaActivity extends AppCompatActivity implements AdapterVie
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+        HashMap<String,String> hashMap=new HashMap<>();
+        hashMap.put("From Whom",FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
+        hashMap.put("Image Name",Imagename);
+        hashMap.put("Download Link",Imagedownloadlink);
+        hashMap.put("Description",edtdescription.getText().toString());
+        FirebaseDatabase.getInstance().getReference().child("my_user").child(uids.get(position)).child("Received_post").push().setValue(hashMap);
         
     }
 }

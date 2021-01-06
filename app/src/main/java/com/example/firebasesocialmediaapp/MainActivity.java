@@ -16,6 +16,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class MainActivity extends AppCompatActivity {
@@ -80,6 +81,28 @@ public class MainActivity extends AppCompatActivity {
                                     .child(task.getResult().getUser().getUid()).child("Username")
                                     .setValue(edtUsername.getText().toString());
                             transitiontosocialmediaactiviy();
+
+
+                            //Set Display Name
+                            FirebaseUser user = mAuth.getCurrentUser();
+
+                            UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                                    .setDisplayName(edtUsername.getText().toString()).build();
+
+                            user.updateProfile(profileUpdates).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful()) {
+                                        Toast.makeText(MainActivity.this,"Diaplay Name updated",Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            });
+
+
+
+
+
+
                         }
                         else {
                             Toast.makeText(MainActivity.this, "Sign up is Failed", Toast.LENGTH_SHORT).show();
