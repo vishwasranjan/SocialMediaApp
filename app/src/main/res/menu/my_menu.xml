@@ -6,4 +6,8 @@
         android:id="@+id/logoutitem"
         android:title="logout"
         app:showAsAction="always" />
+    <item
+        android:id="@+id/receiveditem"
+        android:title="Received Post"
+        app:showAsAction="always" />
 </menu>

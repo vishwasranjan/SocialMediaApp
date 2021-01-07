@@ -114,6 +114,10 @@ public class SocialMediaActivity extends AppCompatActivity implements AdapterVie
                 Intent intent=new Intent(this,MainActivity.class);
                 startActivity(intent);
                 break;
+            case R.id.receiveditem:
+                Intent intent1=new Intent(this,receivedpost.class);
+                startActivity(intent1);
+                break;
         }
         return super.onOptionsItemSelected(item);
     }
