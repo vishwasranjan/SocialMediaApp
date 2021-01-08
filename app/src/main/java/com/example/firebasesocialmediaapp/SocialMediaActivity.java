@@ -270,6 +270,7 @@ public class SocialMediaActivity extends AppCompatActivity implements AdapterVie
         hashMap.put("Download Link",Imagedownloadlink);
         hashMap.put("Description",edtdescription.getText().toString());
         FirebaseDatabase.getInstance().getReference().child("my_user").child(uids.get(position)).child("Received_post").push().setValue(hashMap);
+        Toast.makeText(this,"Sent Sucessfully",Toast.LENGTH_SHORT).show();
         
     }
 }
