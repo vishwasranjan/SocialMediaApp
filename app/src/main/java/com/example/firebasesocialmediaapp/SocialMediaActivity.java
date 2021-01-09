@@ -230,7 +230,6 @@ public class SocialMediaActivity extends AppCompatActivity implements AdapterVie
 
                         @Override
                         public void onChildRemoved(@NonNull DataSnapshot snapshot) {
-
                         }
 
                         @Override

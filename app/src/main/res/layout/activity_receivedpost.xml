@@ -10,15 +10,16 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="start|center_horizontal|center_vertical"
+        android:layout_gravity="center_horizontal|center_vertical"
         android:layout_margin="10dp"
         android:text="Received Post"
-        android:textSize="24sp" />
+        android:textSize="14sp" />
 
     <ImageView
         android:id="@+id/receivedimage"
         android:layout_width="match_parent"
         android:layout_height="200dp"
+        android:visibility="invisible"
         app:srcCompat="@drawable/my_pic" />
 
     <TextView
